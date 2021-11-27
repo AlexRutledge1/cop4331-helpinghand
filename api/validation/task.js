@@ -21,6 +21,10 @@ function checkTaskFields(data) {
     if (Validator.isEmpty(data.name)) {
         errors.name = "Task name is required";
     }
+    if (!Validator.isDate(data.date))
+    {
+        errors.date = "not valid";
+    }
     // location validation goes here
     if (Validator.isEmpty(data.description)) {
         errors.description = "Description is required";
