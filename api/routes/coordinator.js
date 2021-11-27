@@ -1,13 +1,14 @@
 // Establish needed requirements
 const express = require("express");
+const jwt = require("jsonwebtoken");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const checkLogin = require('../validation/login');
 const sendEmail = require('../../utilities/sendEmail');
 const key = require("../../utilities/keys");
-const ifEmpty = require("../validation/checkForEmpty");
 const checkReg = require('../validation/registration.js');
+const ifEmpty = require("../validation/checkForEmpty");
 const buildPath = require('../../frontend/src/redux/buildPath');
 const findUser = require('../utilities/findUser');
 
