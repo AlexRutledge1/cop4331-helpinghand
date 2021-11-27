@@ -144,19 +144,11 @@ router.post('/login', async(req, res) =>
         // Check if hashed password matches input
         await bcrypt.compare(password, results.coord_pw).then(isMatch => {
             if (isMatch) {
-                const payload = {id: results._id, email: results.coord_email, first_name: results.coord_first_name,
-                     last_name: results.coord_last_name};
-                responsePackage = {id: results._id, first_name: results.coord_first_name, last_name: results.coord_last_name, email: coord_email, error: ''}
-                jwt.sign(
-                    payload,
-                    key.secretOrKey,
-                    {expiresIn: 3600},
-                    (err, token) => {
+                
+                responsePackage = {id: results._id, first_name: results.coord_first_name, 
+                    last_name: results.coord_last_name, email: results.coord_email, error: ''};
                         
-                        return res.status(200).json(responsePackage);
-                    }
-                );
-                return;
+                return res.status(200).json(responsePackage);
             } else {
                 responsePackage.error = "Wrong password";
                 return res.status(200).json(responsePackage);
@@ -168,7 +160,7 @@ router.post('/login', async(req, res) =>
         responsePackage.error = 'Invalid username/password';
         return res.status(200).json(responsePackage);
     }
-    return res.status(200).json(responsePackage);
+    
 })
 
 // Verify Coordinator email
