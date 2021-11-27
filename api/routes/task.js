@@ -43,16 +43,16 @@ router.post('/create', async(req, res) =>
     }
     
     const{name, description, date, max_slots, email, address} = req.body;
-    var _date = date.replaceAll('//','-');
+    //var _date = date.replaceAll('//','-');
     const location = {type: "Point", coordinates: [req.body.longitude, req.body.latitude]};
-    let d = new Date(_date);
+    //let d = new Date(_date);
     let m = max_slots;
     if (typeof max_slots === "string")
     {
       m = parseInt(max_slots);
     }
     const newTask = {task_name: name, task_description: description, 
-        task_date: d, max_slots: m, task_location: location, task_address: address, slots_available: m,
+        task_date: date, max_slots: m, task_location: location, task_address: address, slots_available: m,
         vol_arr: []};
     
     const db = client.db();
