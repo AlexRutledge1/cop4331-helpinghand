@@ -167,6 +167,7 @@ router.post('/login', async(req, res) =>
         responsePackage.error = 'Invalid username/password';
         return res.status(200).json(responsePackage);
     }
+    return res.status(200).json(responsePackage);
 })
 
 // Verify Coordinator email
