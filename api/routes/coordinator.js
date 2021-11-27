@@ -127,7 +127,7 @@ router.post('/login', async(req, res) =>
     const {email, password} = req.body;
 
     // Check if input is valid
-    const validity = checkLogin(req.body);
+    const validity = checkLogin.checkLoginFields(req.body);
     if (!validity.isValid)
     {
         return res.status(400).json(validity.errors);
