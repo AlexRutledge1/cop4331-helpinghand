@@ -6,6 +6,7 @@ const crypto = require("crypto");
 const checkLogin = require('../validation/login');
 const sendEmail = require('../../utilities/sendEmail');
 const key = require("../../utilities/keys");
+const ifEmpty = require("../validation/checkForEmpty");
 const checkReg = require('../validation/registration.js');
 const buildPath = require('../../frontend/src/redux/buildPath');
 const findUser = require('../utilities/findUser');
