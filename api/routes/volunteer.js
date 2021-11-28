@@ -233,10 +233,10 @@ router.post('/forgot', async(req, res) =>
     }
 })
 
-router.post('/reset/:token', async(req, res) =>
+router.post('/reset/', async(req, res) =>
 {
     const db = client.db();
-    const {token} = req.params;
+    const {token} = req.body;
     var responsePackage = {};
 
     const checkExistence = await db.collection('volunteer').find({password_token: token,
