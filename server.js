@@ -16,12 +16,10 @@ const path = require('path');
 const port = process.env.PORT || 3000;
 const app = express();
 
-if(process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-  app.get("/*", function(req, res) {
-      res.sendFile(path.join(__dirname, "./client/build/index.html"));
-    });
-}
+app.use(express.static(path.join(__dirname, './frontend/build')))
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './frontend/build'))
+})
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
