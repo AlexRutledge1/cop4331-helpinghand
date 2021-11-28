@@ -95,11 +95,11 @@ router.post('/register', async(req, res) =>
             }
             responsePackage = {id: results.insertedId, first_name: first_name, last_name: last_name, email: email, error: error};
 
-            let to = newVol.vol_email;
+            let to = email;
 
             let sub = "Confirm Registration";
 
-            let link = buildPath('/vol/verify/') + newVol.token;
+            let link = buildPath('/vol/verify/') + token;
 
             let content = 
                 "<body><p>Please verify email.</p> <a href=" + 

@@ -15,7 +15,6 @@ function Email(to, sub, content) {
     subject: sub,
     html: content
   }
-  //Amazon SES email format
   mailTransporter.sendMail(mailDetails, function(err, data) {
     if(err) {
         console.log('Error Occurs');
