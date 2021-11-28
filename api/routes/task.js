@@ -178,11 +178,19 @@ router.post('/remove', async(req, res) => {
       return res.status(400).json("Cannot find that coordinator with this task");
     }
     db.collection('tasks').findOneAndDelete({_id: task}).then( async(result) => {
-      
+      db.collection('volunteers').updateMany({
+        task_arr: task
+      }, 
+      {
+        $pull: {
+          task_arr: task
+        }
+      })
       if (result == null)
       {
         return res.status(400).json("Cannot find task");
       }
+      
       return res.status(200).json({success: true});
     })
   })
