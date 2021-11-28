@@ -190,7 +190,7 @@ router.post('/login', async(req, res) =>
         responsePackage.errors.email = 'Invalid username/password';
         return res.status(200).json(responsePackage);
     }
-    return res.status(200).json(responsePackage);
+    
 })
 
 // Forgot password
@@ -257,8 +257,12 @@ router.post('/reset/', async(req, res) =>
             bcrypt.hash(req.body.password1, salt, async(err, hash) =>
             {
                 if (err) throw err;
-                const update = await db.collection('volunteer').findOneAndUpdate({password_token: token}, {vol_pw: hash,
-                    password_token_used: "t"});
+                const update = await db.collection('volunteer').findOneAndUpdate({password_token: token}, {
+                    $set: {
+                        vol_pw: hash,
+                    password_token_used: "t"
+                    }
+                });
                 if (update.modifiedCount > 0)
                 {
                     const to = checkExistence.vol_email;
