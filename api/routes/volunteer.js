@@ -345,13 +345,13 @@ router.post('/addTask', async(req, res) =>
 
 router.post('/removeTask', async(req, res) =>
 {
-    // Input: userID, taskID
+    // Input: email, taskID
     const db = client.db();
     const {email, taskID} = req.body;
     let _task = new mongodb.ObjectId(taskID);
     const userID = await findUser({email: email, role: 'volunteer'});
     var responsePackage = {success: true, error: ''};
-    const task = await db.collection('tasks').findOne({_id: _task, vol_arr: {$eq: userID}});
+    const task = await db.collection('tasks').findOne({_id: _task, vol_arr: userID});
 
     if (!ifEmpty(task))
     {
@@ -375,7 +375,7 @@ router.post('/removeTask', async(req, res) =>
         {
             responsePackage.error = "Could not update document";
             responsePackage.success = false;
-            res.status(200).json(responsePackage);
+            res.status(400).json(responsePackage);
         }
         else res.status(200).json(responsePackage);
     }
@@ -412,7 +412,6 @@ router.post('/tasks', async(req, res) =>
         if (result == null)
             return res.status(400).json("no such user found");
         var taskIDs = result.task_arr;
-        console.log(taskIDs);
         if (taskIDs == null || taskIDs.length == 0)
             callback();
         else 
