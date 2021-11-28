@@ -263,7 +263,6 @@ router.post('/reset/', async(req, res) =>
                     password_token_used: "t"
                     }
                 });
-                console.log(update);
                 if (update.lastErrorObject.updatedExisting)
                 {
                     const to = checkExistence.vol_email;
@@ -274,6 +273,11 @@ router.post('/reset/', async(req, res) =>
                     sendEmail.Email(to, sub, txt);
                     responsePackage.success = true;
                     return res.status(200).json(responsePackage);
+                }
+                else 
+                {
+                    responsePackage.error = 'Couldn\'t update user';
+                    return res.status(400).json(responsePackage);
                 }
             })
         })
