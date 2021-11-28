@@ -190,7 +190,7 @@ router.post('/login', async(req, res) =>
         responsePackage.errors.email = 'Invalid username/password';
         return res.status(200).json(responsePackage);
     }
-    
+    return res.status(200).json(responsePackage);
 })
 
 // Forgot password
@@ -233,13 +233,13 @@ router.post('/forgot', async(req, res) =>
     }
 })
 
-router.post('/reset/', async(req, res) =>
+router.post('/reset/:token', async(req, res) =>
 {
     const db = client.db();
-    const {token} = req.body;
+    const {token} = req.params;
     var responsePackage = {};
 
-    const checkExistence = await db.collection('volunteer').findOne({password_token: token,
+    const checkExistence = await db.collection('volunteer').find({password_token: token,
         password_token_used: "f"});
     
     if (req.body.password1 != req.body.password2)
@@ -257,13 +257,9 @@ router.post('/reset/', async(req, res) =>
             bcrypt.hash(req.body.password1, salt, async(err, hash) =>
             {
                 if (err) throw err;
-                const update = await db.collection('volunteer').findOneAndUpdate({password_token: token}, {
-                    $set: {
-                        vol_pw: hash,
-                    password_token_used: "t"
-                    }
-                });
-                if (update.lastErrorObject.updatedExisting)
+                const update = await db.collection('volunteer').updateOne({password_token: token}, {vol_pw: hash,
+                    password_token_used: "t"});
+                if (update.modifiedCount > 0)
                 {
                     const to = checkExistence.vol_email;
                     const sub = "Password changed for your account";
@@ -273,11 +269,6 @@ router.post('/reset/', async(req, res) =>
                     sendEmail.Email(to, sub, txt);
                     responsePackage.success = true;
                     return res.status(200).json(responsePackage);
-                }
-                else 
-                {
-                    responsePackage.error = 'Couldn\'t update user';
-                    return res.status(400).json(responsePackage);
                 }
             })
         })
