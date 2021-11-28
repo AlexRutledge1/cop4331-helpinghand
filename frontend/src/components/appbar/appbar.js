@@ -114,6 +114,7 @@ export default function Appbar(props) {
                     <AiIcons.AiOutlineClose />
                   </Link>
                 </li>
+                
                 <Button className= 'button-test'  onClick={() => history.push("/edit")} > <VscEdit/>edit </Button>
                 <Button className= 'button-test'  onClick={() => history.push("/")} > <RiLogoutBoxLine/>logout </Button>
                 {/* {SidebarData.map((item, index) => {
@@ -141,7 +142,7 @@ export default function Appbar(props) {
                       color="inherit"
                       aria-label="open drawer"
                   >
-                                      <ArrowBackIosIcon className={classes.backIcon} onClick = {() => history.goBack()}/>
+                  <ArrowBackIosIcon className={classes.backIcon} onClick = {() => history.goBack()}/>
 
                   {props.title == 'Volunteer Tasks Near You'?  <Button className= 'button-summary'  onClick={() => 
                   { history.push({
