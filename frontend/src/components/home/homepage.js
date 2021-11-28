@@ -101,7 +101,15 @@ function AccessCodePage(props) {
 			var js = JSON.stringify(obj);
 
 			try {
-				const response = await fetch(buildPath("/vol/login"), {
+				let response;
+				if (role == "Volunteer")
+				response = await fetch(buildPath("/vol/login"), {
+					method: "POST",
+					body: js,
+					headers: { "Content-Type": "application/json" },
+				});
+				else
+				response = await fetch(buildPath("/coord/login"), {
 					method: "POST",
 					body: js,
 					headers: { "Content-Type": "application/json" },

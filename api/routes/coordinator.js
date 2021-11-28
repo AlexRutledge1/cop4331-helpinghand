@@ -144,10 +144,8 @@ router.post('/login', async(req, res) =>
         // Check if hashed password matches input
         await bcrypt.compare(password, results.coord_pw).then(isMatch => {
             if (isMatch) {
-                
                 responsePackage = {id: results._id, first_name: results.coord_first_name, 
-                    last_name: results.coord_last_name, email: results.coord_email, error: ''};
-                        
+                    last_name: results.coord_last_name, email: results.coord_email, error: ''};       
                 return res.status(200).json(responsePackage);
             } else {
                 responsePackage.error = "Wrong password";
