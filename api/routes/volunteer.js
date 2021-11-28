@@ -257,7 +257,7 @@ router.post('/reset/', async(req, res) =>
             bcrypt.hash(req.body.password1, salt, async(err, hash) =>
             {
                 if (err) throw err;
-                const update = await db.collection('volunteer').updateOne({password_token: token}, {vol_pw: hash,
+                const update = await db.collection('volunteer').findOneAndUpdate({password_token: token}, {vol_pw: hash,
                     password_token_used: "t"});
                 if (update.modifiedCount > 0)
                 {
