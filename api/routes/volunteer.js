@@ -239,7 +239,7 @@ router.post('/reset/', async(req, res) =>
     const {token} = req.body;
     var responsePackage = {};
 
-    const checkExistence = await db.collection('volunteer').find({password_token: token,
+    const checkExistence = await db.collection('volunteer').findOne({password_token: token,
         password_token_used: "f"});
     
     if (req.body.password1 != req.body.password2)
@@ -263,7 +263,8 @@ router.post('/reset/', async(req, res) =>
                     password_token_used: "t"
                     }
                 });
-                if (update.modifiedCount > 0)
+                console.log(update);
+                if (update.lastErrorObject.updatedExisting)
                 {
                     const to = checkExistence.vol_email;
                     const sub = "Password changed for your account";
