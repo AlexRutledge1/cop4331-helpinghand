@@ -397,7 +397,8 @@ router.post('/tasks', async(req, res) =>
     
     
     async function getTask(data){
-        var obj = await db.collection('tasks').findOne({_id: data}).then( (task) => {
+        var id = await new mongodb.ObjectId(data);
+        var obj = await db.collection('tasks').findOne({_id: id}).then( (task) => {
             return task;
         });
         return obj;
