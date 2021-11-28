@@ -14,6 +14,7 @@ export default function VolunteerPage(props) {
 	let idTrack = useRef(null);
 	var user_data = JSON.parse(localStorage.getItem("user_data"));
 	var user_email = user_data.email;
+	var user_name = user_data.first_name;
 	console.log(user_email);
 	const [posts, setPosts] = useState([]);
 
@@ -112,7 +113,7 @@ export default function VolunteerPage(props) {
 
 	return (
 		<div>
-			<Appbar title="Volunteer's Tasks" />
+			<Appbar title={user_name + "'s Tasks"} />
 			<Grid
 				container
 				direction="row"

@@ -23,6 +23,7 @@
     "date-fns": "^2.26.0",
     "fontsource-roboto": "^3.0.3",
     "google-maps-react": "2.0.6",
+    "moment": "^2.29.1",
     "react": "^16.13.1",
     "react-bootstrap": "^2.0.2",
     "react-dom": "^16.13.1",

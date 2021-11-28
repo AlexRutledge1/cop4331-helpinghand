@@ -15,6 +15,7 @@ function FindTask(props) {
 	var user_data = JSON.parse(localStorage.getItem("user_data"));
 	var user_email = user_data.email;
 	var user_id = user_data.id;
+	var user_name = user_data.first_name;
 	console.log(user_data);
 
 	console.log(user_email);

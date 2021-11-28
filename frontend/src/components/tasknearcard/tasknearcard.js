@@ -180,7 +180,7 @@ export default function AreaCard(props) {
         </IconButton> */}
 					<ExpandMore aria-label="show more">
 						<Typography color="textSecondary">
-							{props.task.slots_available} / {props.task.max_slots}
+							Slots available: {props.task.slots_available}
 						</Typography>
 					</ExpandMore>
 				</CardActions>

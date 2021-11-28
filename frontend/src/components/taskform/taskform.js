@@ -14,6 +14,7 @@ import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import AutoComplete from "react-google-autocomplete";
 import DateFnsUtils from "@date-io/date-fns";
+import * as moment from "moment";
 
 import {
 	KeyboardDatePicker,
@@ -92,6 +93,10 @@ const useStyles = makeStyles((theme) => ({
 	buttonColor: {
 		backgroundColor: "#27AE60",
 		color: "#FFFFFF",
+		"&:hover": {
+			backgroundColor: "#197257",
+			color: "#ffffff",
+		},
 	},
 	tab: {
 		fullWidth: true,
@@ -125,52 +130,68 @@ export default function EventRegistrationForm() {
 	var user_email = user_data.email;
 	console.log(user_email);
 
+	function isEmpty() {
+		if (
+			title.length <= 0 ||
+			description.length <= 0 ||
+			selectedDate.length <= 0 ||
+			maxVol.length <= 0 ||
+			place.formatted_address <= 0
+		) {
+			return true;
+		}
+	}
+
 	async function handleSubmit(event) {
 		// role has just been added , Api needs to add to api call console.log(role);
 		// and make the call based on the value of role
 		// register role as well i assume
 		event.preventDefault();
-
-		if (place != null) {
-			var lati = place.geometry.location.lat();
-			var lng = place.geometry.location.lng();
-			console.log(lati, lng);
-		}
-		console.log(place.formatted_address);
-
-		var obj = {
-			name: title,
-			description: description,
-			date: selectedDate,
-			max_slots: maxVol,
-			latitude: lati,
-			longitude: lng,
-			email: user_email,
-			address: place.formatted_address,
-		};
-		var js = JSON.stringify(obj);
-
-		try {
-			const response = await fetch(buildPath("/task/create"), {
-				method: "POST",
-				body: js,
-				headers: { "Content-Type": "application/json" },
-			});
-
-			var res = JSON.parse(await response.text());
-			if (res.id < 0) {
-				// setMessage(res.error);
-			} else {
-				var user = {
-					id: res.id,
-				};
-				console.log(user);
-
-				history.push("/coordinatorPage");
+		if (!isEmpty()) {
+			if (place != null) {
+				var lati = place.geometry.location.lat();
+				var lng = place.geometry.location.lng();
+				console.log(lati, lng);
 			}
-		} catch (e) {
-			alert(e.toString());
-			return;
+			console.log(place.formatted_address);
+			const beginDate = moment(selectedDate).format("YYYY-MM-DD");
+			console.log("ddate: ", beginDate);
+			console.log(selectedDate);
+			var obj = {
+				name: title,
+				description: description,
+				date: beginDate,
+				max_slots: maxVol,
+				latitude: lati,
+				longitude: lng,
+				email: user_email,
+				address: place.formatted_address,
+			};
+			var js = JSON.stringify(obj);
+
+			try {
+				const response = await fetch(buildPath("/task/create"), {
+					method: "POST",
+					body: js,
+					headers: { "Content-Type": "application/json" },
+				});
+
+				var res = JSON.parse(await response.text());
+				if (res.id < 0) {
+					// setMessage(res.error);
+				} else {
+					var user = {
+						id: res.id,
+					};
+					console.log(user);
+
+					history.push("/coordinatorPage");
+				}
+			} catch (e) {
+				return;
+			}
+		} else {
+			alert("Please fill out required fields.");
 		}
 	}
 
@@ -269,7 +290,7 @@ export default function EventRegistrationForm() {
 									autoOk
 									variant="inline"
 									inputVariant="outlined"
-									label="Date of Task"
+									label="Date of Task*"
 									format="MM/dd/yyyy"
 									value={selectedDate}
 									InputAdornmentProps={{ position: "start" }}

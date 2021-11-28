@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaCalendarAlt } from "react-icons/fa";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -63,40 +63,44 @@ export default function SimpleCard(props) {
 	}
 
 	async function handleSubmit() {
-		console.log("taskid: ", props.task._id);
-		console.log(buildPath("/task/remove"));
-		var obj = { email: user_email, taskID: props.task._id };
-		console.log(obj);
-		var js = JSON.stringify(obj);
-		console.log(js);
+		if (window.confirm("Are you sure you want to delete this task?")) {
+			// Save it!
 
-		try {
-			const response = await fetch(buildPath("/task/remove"), {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: js,
-			});
+			console.log("taskid: ", props.task._id);
+			console.log(buildPath("/task/remove"));
+			var obj = { email: user_email, taskID: props.task._id };
+			console.log(obj);
+			var js = JSON.stringify(obj);
+			console.log(js);
 
-			var res = JSON.parse(await response.text());
-			console.log(res);
-			if (res.error != null) {
-				console.log(res.error);
-			} else {
-				console.log("success");
-				window.location.reload(false);
-				//this is a check because the page might render twice and cause the call to fail
-				//if the call fails and res is set then the structure is different from if it returned tasks
-				//and we cans use the same syntax to parse it with map
-				if (res != "no such user found") {
-					setPosts(res);
+			try {
+				const response = await fetch(buildPath("/task/remove"), {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: js,
+				});
+
+				var res = JSON.parse(await response.text());
+				console.log(res);
+				if (res.error != null) {
+					console.log(res.error);
 				} else {
-					console.log("User not found error");
+					console.log("success");
+					window.location.reload(false);
+					//this is a check because the page might render twice and cause the call to fail
+					//if the call fails and res is set then the structure is different from if it returned tasks
+					//and we cans use the same syntax to parse it with map
+					if (res != "no such user found") {
+						setPosts(res);
+					} else {
+						console.log("User not found error");
+					}
+					return res;
 				}
-				return res;
+			} catch (e) {
+				alert(e.toString());
+				return;
 			}
-		} catch (e) {
-			alert(e.toString());
-			return;
 		}
 	}
 
@@ -129,6 +133,9 @@ export default function SimpleCard(props) {
 				/>
 				<CardContent>
 					<Typography variant="body2" color="text.secondary">
+						<FaCalendarAlt /> {"   "} {props.task.task_date.substr(0, 10)}
+					</Typography>
+					<Typography variant="body2" color="text.secondary">
 						{props.task.task_description}
 					</Typography>
 				</CardContent>
@@ -140,11 +147,11 @@ export default function SimpleCard(props) {
 						key={props.task.task_name}
 						onClick={handleSubmit}
 					>
-						Finished
+						Delete
 					</Button>
 					<ButtonLeft aria-label="show more">
 						<Typography color="textSecondary">
-							Available slots :{props.task.slots_available}
+							Available slots : {props.task.slots_available}
 						</Typography>
 					</ButtonLeft>
 				</CardActions>

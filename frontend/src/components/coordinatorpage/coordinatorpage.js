@@ -19,7 +19,9 @@ export default function CoordinatorPage(props) {
 	const [posts, setPosts] = useState([]);
 	var user_data = JSON.parse(localStorage.getItem("user_data"));
 	var user_email = user_data.email;
-	console.log(user_email);
+	var user_name = user_data.first_name;
+	console.log(user_data);
+	console.log(user_name);
 
 	const style = {
 		margin: 0,
@@ -138,7 +140,7 @@ export default function CoordinatorPage(props) {
 
 	return (
 		<div>
-			<Appbar title="Coordinator's Task Created" type="coordinator" />
+			<Appbar title={user_name + "'s Task Created"} type="coordinator" />
 			<Grid
 				container
 				direction="row"
@@ -146,7 +148,7 @@ export default function CoordinatorPage(props) {
 				// columnSpacing={{ xs: 1, sm: 2, md: 3 }}
 				// justify="space-between"
 				// spacing={{ xs: 2, md:  }}
-				columns={{ xs: 4, sm: 8, md: 12 }}
+				columns={{ xs: 1, sm: 2, md: 3 }}
 				justifyContent="space-evenly"
 				alignItems="flex-start"
 			>
