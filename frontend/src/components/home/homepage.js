@@ -110,6 +110,7 @@ function AccessCodePage(props) {
 				var res = JSON.parse(await response.text());
 				if (res.id < 0) {
 					setMessage(res.error);
+					window.alert("Invalid Login");
 				} else {
 					console.log(res.id);
 					var user = {
@@ -185,10 +186,10 @@ function AccessCodePage(props) {
 							email: res.email,
 						};
 						localStorage.setItem("user_data", JSON.stringify(user));
-
+						window.alert('Please verify your email');
 						setMessage("");
 						// await sendConfirmationEmail({toUser: user.email, hash: user.id});
-						history.push("/findtask"); // would this be history.push areas as well
+						history.push("/"); // would this be history.push areas as well
 					}
 				} catch (e) {
 					// alert(e.toString());
