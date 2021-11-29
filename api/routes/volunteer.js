@@ -241,7 +241,6 @@ router.post('/reset/:token', async(req, res) =>
 
     const checkExistence = await db.collection('volunteer').findOne({password_token: token,
         password_token_used: "f"});
-    console.log(checkExistence);
     if (req.body.password1 != req.body.password2)
     {
         responsePackage.success = false;

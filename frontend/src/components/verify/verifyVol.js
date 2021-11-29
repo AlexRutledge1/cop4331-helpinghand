@@ -6,11 +6,13 @@ import Appbar from "../appbar/appbar.js";
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import axios from 'axios';
 import { connect } from "react-redux";
 import { setAreas } from '../../redux/actions.js';
 import { useHistory } from "react-router-dom";
+
+const buildPath = require('../../redux/buildPath');
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,6 +29,27 @@ const useStyles = makeStyles((theme) => ({
 
 function VerifyVolPage(props)
 {
+  let {token} = useParams();
+  const history = useHistory();
+  async function handleSubmit(){
+    try{
+      const res = await fetch(buildPath('/vol/verify/') + token, {method: 'GET',
+        body: js, headers:{'Content-Type':'application/json'}});
+      let response = JSON.parse(await res.text());
+      if (response.success)
+      {
+        history.push("/");
+      }
+      else
+      {
+        alert(response.error);
+      }
+    }
+    catch(e)
+    {
+      alert(e);
+    }
+  }
     const classes = useStyles();
 
     return (
@@ -39,7 +62,10 @@ function VerifyVolPage(props)
                 spacing={4}
           ></Grid>
             <Grid item>
-                
+                <Button 
+                className={classes.smallbutton}
+                onClick={(handleSubmit)}>Verify Email
+            </Button>
             </Grid>
         </>
     )
