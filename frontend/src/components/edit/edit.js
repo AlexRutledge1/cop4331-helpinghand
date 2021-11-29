@@ -45,13 +45,14 @@ function Edit(props) {
 	const [distance, setDistance] = useState(0);
 	// const [radius, setRadius] = useState(0);
 	// const [message, setMessage] = useState('');
-	const [email, setEmail] = useState("");
+	
 	const [location, setLocation] = useState(null);
 	const apiKey = "AIzaSyCVF0U1KIXIVF3WkEhJ84Ps3EnlKt4NtO4";
 	console.log(location);
 	async function handleEdit(event) {
 		event.preventDefault();
-		var email = localStorage.getItem("email");
+		var email = user_data.email;
+		console.log(email);
 		if (location != null) {
 			var lati = location.geometry.location.lat();
 			var lng = location.geometry.location.lng();
@@ -62,7 +63,7 @@ function Edit(props) {
 			last_name: lastName,
 			longitude: lng,
 			latitude: lati,
-			address: location.formatted_address,
+			address: (location == null) ? null : location.formatted_address,
 			accepted_distance: distance,
 			email: email,
 		};
