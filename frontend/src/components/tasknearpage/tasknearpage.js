@@ -56,7 +56,7 @@ function FindTask(props) {
 					// body: js,
 				});
 				console.log(response);
-				var res = JSON.parse(await response.text());
+				var res = await response.json();
 				// console.log(res);
 				if (res.error != null) {
 					console.log(res.error);
