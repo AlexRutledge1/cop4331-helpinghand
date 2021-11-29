@@ -17,6 +17,7 @@ import CreateCoordinator from "./components/createCoordinator/createCoordinator.
 import VerifyVol from "./components/verify/verifyVol.js";
 import Forgot from "./components/forgotpassword/forgot";
 import Edit from "./components/edit/edit.js";
+import Reset from "./components/reset/reset";
 
 import {
   BrowserRouter as Router,
@@ -39,6 +40,9 @@ function App() {
           <Route path="/accesscode">
             <VolunteerLogin/>
             {/* <AccessCodePage /> */}
+          </Route>
+          <Route path="/reset/:token">
+            <Reset/>
           </Route>
           <Route path="/forgot">
             <Forgot/>

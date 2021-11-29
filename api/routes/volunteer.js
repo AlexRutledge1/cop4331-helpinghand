@@ -215,7 +215,7 @@ router.post('/forgot', async(req, res) =>
 
         let sub = "Reset password";
 
-        let link = buildPath('/vol/reset/') + resetToken;
+        let link = buildPath('/reset/') + resetToken;
 
         let content = 
             "<body><p>Click the link to reset your password</p> <a href=" + 
@@ -257,9 +257,10 @@ router.post('/reset/:token', async(req, res) =>
             bcrypt.hash(req.body.password1, salt, async(err, hash) =>
             {
                 if (err) throw err;
-                const update = await db.collection('volunteer').updateOne({password_token: token}, {vol_pw: hash,
+                const update = await db.collection('volunteer').findOneAndUpdate({password_token: token}, {vol_pw: hash,
                     password_token_used: "t"});
-                if (update.modifiedCount > 0)
+                
+                if (update.lastErrorObject.updatedExisting == true)
                 {
                     const to = checkExistence.vol_email;
                     const sub = "Password changed for your account";
@@ -270,6 +271,7 @@ router.post('/reset/:token', async(req, res) =>
                     responsePackage.success = true;
                     return res.status(200).json(responsePackage);
                 }
+                else return res.status(200).json(responsePackage);
             })
         })
     }
