@@ -405,7 +405,7 @@ function AccessCodePage(props) {
 
 						}
 						</ script>
-						<Link href="#" onclick="history.push('/forgot');alert('it works');" variant="body2">
+						<Link href="/forgot"  variant="body2">
 							Forgot password?
 						</Link>
 					</Grid>
