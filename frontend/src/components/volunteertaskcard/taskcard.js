@@ -80,11 +80,10 @@ export default function SimpleCard(props) {
 			console.log(response);
 			var res = JSON.parse(await response.text());
 			console.log(res);
-			if (res.error != null) {
-				console.log(res.error);
-			} else {
+			
+			if(res.success) {
 				console.log("success");
-				window.location.reload(true);
+				window.location.reload(false);
 
 				//this is a check because the page might render twice and cause the call to fail
 				//if the call fails and res is set then the structure is different from if it returned tasks
@@ -98,7 +97,8 @@ export default function SimpleCard(props) {
 					console.log("User not found error");
 				}
 				return res;
-			}
+			}else
+				console.log(res.error);
 		} catch (e) {
 			alert(e.toString());
 			return;
