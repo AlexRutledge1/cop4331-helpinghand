@@ -15,6 +15,7 @@ import TaskRegistration from "./components/taskform/taskform.js"
 import CreateVolunteer from "./components/createVolunteer/createVolunteer.js"
 import CreateCoordinator from "./components/createCoordinator/createCoordinator.js"
 import VerifyVol from "./components/verify/verifyVol.js";
+import VerifyCoord from "./components/verify/verifyCoord";
 import Forgot from "./components/forgotpassword/forgot";
 import Edit from "./components/edit/edit.js";
 import Reset from "./components/reset/reset";
@@ -44,14 +45,17 @@ function App() {
           <Route path="/reset/:token">
             <Reset/>
           </Route>
-          <Route exact path="/forgot">
+          <Route path="/forgot">  
             <Forgot/>
           </Route>
           <Route path="/findtask">
             <FindTaskPage />
           </Route>
-          <Route path="/vol/verify/">
+          <Route path="/verify_vol/:token">
             <VerifyVol />
+          </Route>
+          <Route path="/verify_coord/:token">
+            <VerifyCoord />
           </Route>
           <Route path="/createCoordinator">
             <CreateCoordinator />

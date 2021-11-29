@@ -99,7 +99,7 @@ router.post('/register', async(req, res) =>
 
             let sub = "Confirm Registration";
 
-            let link = buildPath('/vol/verify/') + token;
+            let link = buildPath('/verify_vol/') + token;
 
             let content = 
                 "<body><p>Please verify email.</p> <a href=" + 
