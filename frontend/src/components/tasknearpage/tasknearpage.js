@@ -57,6 +57,7 @@ function FindTask(props) {
 				});
 				console.log(response);
 				var res = await response.json();
+				console.log(res);
 				// console.log(res);
 				if (res.error != null) {
 					console.log(res.error);

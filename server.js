@@ -34,6 +34,12 @@ app.use((req, res, next) =>
   next();
 });
 
+
+
+// Setup your api routes with express
+app.use("/vol", volRoutes);
+app.use("/coord", coordRoutes);
+app.use("/task", taskRoutes);
 if (process.env.NODE_ENV === 'production') 
 {
   // Set static folder
@@ -44,12 +50,6 @@ if (process.env.NODE_ENV === 'production')
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
   });
 }
-
-// Setup your api routes with express
-app.use("/vol", volRoutes);
-app.use("/coord", coordRoutes);
-app.use("/task", taskRoutes);
-
 
 // express returns an HTTP server
 app.listen(port, () => console.log("[Server] on port " + port + " online " + new Date()));
