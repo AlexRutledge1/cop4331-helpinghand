@@ -44,7 +44,7 @@ function App() {
           <Route path="/reset/:token">
             <Reset/>
           </Route>
-          <Route path="/forgot">
+          <Route exact path="/forgot">
             <Forgot/>
           </Route>
           <Route path="/findtask">

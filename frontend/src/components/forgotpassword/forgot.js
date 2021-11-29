@@ -6,7 +6,6 @@ import { useHistory } from "react-router-dom";
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import { setAreas } from '../../redux/actions.js';
 
@@ -67,11 +66,11 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-function Forgot(props)
+function Forgot()
 {
     const classes = useStyles();
     let history = useHistory();
-    const location = useLocation();
+    
     const [email, setEmail] = useState('');
 
     async function handleSubmit(event) {

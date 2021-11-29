@@ -400,7 +400,12 @@ function AccessCodePage(props) {
 				</Button>
 				<Grid container>
 					<Grid item xs>
-						<Link href="/forgot" variant="body2">
+						<script type="text/javascript">
+						function toForgot(){
+
+						}
+						</ script>
+						<Link href="#" onclick="history.push('/forgot');alert('it works');" variant="body2">
 							Forgot password?
 						</Link>
 					</Grid>

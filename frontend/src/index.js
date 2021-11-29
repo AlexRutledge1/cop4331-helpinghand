@@ -7,7 +7,7 @@ import HomePage from './components/homepageold/homepageold.js';
 import axios from "axios"
 import { Provider as ReduxProvider } from 'react-redux';
 import store from './redux/store';
-axios.defaults.baseURL = 'http://helpinghand.com';
+axios.defaults.baseURL = 'http://helpinghand-cop4331.herokuapp.com';
 
 
 ReactDOM.render(
