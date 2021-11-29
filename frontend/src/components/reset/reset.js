@@ -98,7 +98,7 @@ function Reset(props)
     }
     return (
         <div>
-            <Appbar title="Forgot Password" type="Volunteer"/>
+            <Appbar title="Reset Password" type="Volunteer"/>
             <Grid
                 container
                 direction="column"

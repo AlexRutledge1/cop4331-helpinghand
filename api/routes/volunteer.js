@@ -239,9 +239,9 @@ router.post('/reset/:token', async(req, res) =>
     const {token} = req.params;
     var responsePackage = {};
 
-    const checkExistence = await db.collection('volunteer').find({password_token: token,
+    const checkExistence = await db.collection('volunteer').findOne({password_token: token,
         password_token_used: "f"});
-    
+    console.log(checkExistence);
     if (req.body.password1 != req.body.password2)
     {
         responsePackage.success = false;
@@ -257,8 +257,14 @@ router.post('/reset/:token', async(req, res) =>
             bcrypt.hash(req.body.password1, salt, async(err, hash) =>
             {
                 if (err) throw err;
-                const update = await db.collection('volunteer').findOneAndUpdate({password_token: token}, {vol_pw: hash,
-                    password_token_used: "t"});
+                const update = await db.collection('volunteer').findOneAndUpdate({password_token: token}, 
+                    {
+                        $set:
+                    {
+                        vol_pw: hash,
+                        password_token_used: "t"
+                    }
+                });
                 
                 if (update.lastErrorObject.updatedExisting == true)
                 {
