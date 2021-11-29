@@ -52,7 +52,7 @@ function FindTask(props) {
 			try {
 				const response = await fetch(buildPath("/task/find" + user_email), {
 					method: "GET",
-					headers: { "Content-Type": "application/json" },
+					headers: { "Content-Type": "application/json" }
 					// body: js,
 				});
 				console.log(response);

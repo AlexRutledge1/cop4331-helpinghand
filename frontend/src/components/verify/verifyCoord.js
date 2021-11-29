@@ -33,7 +33,7 @@ function VerifyCoordPage(props)
   const history = useHistory();
   async function handleSubmit(){
     try{
-      const res = await fetch(buildPath('/vol/verify/') + token, {method: 'GET', headers:{'Content-Type':'application/json'}});
+      const res = await fetch(buildPath('/coord/verify/') + token, {method: 'GET', headers:{'Content-Type':'application/json'}});
       let response = JSON.parse(await res.text());
       if (response.success)
       {
